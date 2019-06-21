@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     var numberOfRows = 99999 // Just "infinite" rows to begin with
-    let serialQueue = DispatchQueue(label: "serialQueue")
+    let backgroundQueue = DispatchQueue.global(qos: .background)
     var tableData: [UInt64] = [1, 1, 2]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,7 +37,7 @@ class ViewController: UITableViewController {
             
         } else {
             
-            serialQueue.async {
+            backgroundQueue.async {
                 fibonacci = self.fibonacci(n: n)
                 
                 DispatchQueue.main.async {
